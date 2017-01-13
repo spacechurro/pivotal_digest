@@ -16,7 +16,9 @@ project = PivotalTracker::Project.find(project_id)
 owners.each do |owner|
   stories = project.stories.all(owner: owner, state: %w(started unstarted))
 
-  puts "## #{stories.first.owned_by}\n\n"
+  story_with_correct_owner = stories.find { |s| s.owned_by[0].downcase == owner[0] }
+
+  puts "## #{story_with_correct_owner.owned_by}\n\n"
 
   in_progress = project.stories.all(owner: owner, state: 'started')
   unstarted = project.stories.all(owner: owner, state: 'unstarted')
