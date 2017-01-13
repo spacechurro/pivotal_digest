@@ -16,23 +16,23 @@ project = PivotalTracker::Project.find(project_id)
 owners.each do |owner|
   stories = project.stories.all(owner: owner, state: %w(started unstarted))
 
-  puts "#{stories.first.owned_by}\n\n"
+  puts "## #{stories.first.owned_by}\n\n"
 
   in_progress = project.stories.all(owner: owner, state: 'started')
   unstarted = project.stories.all(owner: owner, state: 'unstarted')
 
   unless in_progress.empty?
-    puts "In progress\n\n"
+    puts "### In progress\n\n"
     in_progress.each do |story|
-      puts story.name
+      puts "#{story.name}  "
       puts "#{story.url}\n\n"
     end
   end
 
   unless unstarted.empty?
-    puts "Unstarted\n\n"
+    puts "### Unstarted\n\n"
     unstarted.each do |story|
-      puts story.name
+      puts "#{story.name}  "
       puts "#{story.url}\n\n"
     end
   end
