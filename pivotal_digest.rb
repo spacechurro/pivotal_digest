@@ -18,6 +18,8 @@ owners.each do |owner|
 
   story_with_correct_owner = stories.find { |s| s.owned_by[0].downcase == owner[0] }
 
+  next unless story_with_correct_owner
+
   puts "## #{story_with_correct_owner.owned_by}\n\n"
 
   in_progress = project.stories.all(owner: owner, state: 'started')
