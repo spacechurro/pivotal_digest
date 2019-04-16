@@ -3,9 +3,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-# require 'pivotal-tracker'
 require 'tracker_api'
-require 'pry'
 
 token = ENV['TOKEN']
 project_id = ENV['PROJECT_ID']
@@ -37,10 +35,10 @@ owners.each do |owner|
   puts "## #{person.name}"
 
   # get all their in_progress stories together for printing
-  in_progress = project.stories.all(owner: owner, state: 'started')
+  in_progress = stories.select { |story| story.current_state == 'started' }
 
   # get all their unstarted stories together for printing.
-  unstarted = project.stories.all(owner: owner, state: 'unstarted')
+  unstarted = stories.select { |story| story.current_state == 'unstarted' }
 
   ## print out the story name, and the url.
   unless in_progress.empty?
